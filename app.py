@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, send_file
 import plotly.graph_objects as go
 import kaleido
+import io
 
 app = Flask(__name__)
 
