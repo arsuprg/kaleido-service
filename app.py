@@ -1,7 +1,7 @@
 from flask import Flask, request, send_file
 import plotly.graph_objects as go
+import kaleido
 import io
-import kaleido  # belangrijk voor Chrome download
 
 app = Flask(__name__)
 
