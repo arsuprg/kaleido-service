@@ -8,13 +8,13 @@ app = Flask(__name__)
 @app.route("/image", methods=["POST"])
 def create_image():
     data = request.get_json()
-
-    # Zorg dat Chrome aanwezig is
+    
+    # Zorg dat Chrome aanwezig is voor Kaleido
     kaleido.get_chrome_sync()
-
-    fig = go.Figure(data=data["figure"]["data"])
+    
+    fig = go.Figure(data=data["figure"]["data"], layout=data["figure"].get("layout"))
     img_bytes = fig.to_image(format=data.get("format", "png"))
-
+    
     return send_file(
         io.BytesIO(img_bytes),
         mimetype="image/png",
