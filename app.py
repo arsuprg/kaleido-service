@@ -1,16 +1,20 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, send_file
 import plotly.graph_objects as go
-import kaleido
 import io
+import kaleido  # belangrijk voor Chrome download
 
 app = Flask(__name__)
 
 @app.route("/image", methods=["POST"])
 def create_image():
     data = request.get_json()
+
+    # Zorg dat Chrome aanwezig is
+    kaleido.get_chrome_sync()
+
     fig = go.Figure(data=data["figure"]["data"])
     img_bytes = fig.to_image(format=data.get("format", "png"))
-    
+
     return send_file(
         io.BytesIO(img_bytes),
         mimetype="image/png",
